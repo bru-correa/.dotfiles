@@ -1,0 +1,35 @@
+#!/bin/bash
+
+FZF_SETTINGS="--height=50% --layout=reverse --border --exit-0"
+
+function set_origin() {
+	origin=$(
+		git remote get-url origin |
+			sed -r 's/git@\w+\.github/git@github/' |
+			sed "s/git@/git@$1./"
+	)
+	git remote set-url origin $origin
+}
+
+function setup_git_commit() {
+	items=("personal" "work" "42")
+	selected=$(printf "%s\n" "${items[@]}" |
+		fzf --prompt=" Git Config - Choose your commit profile" $FZF_SETTINGS)
+	if [[ -z $selected ]]; then
+		echo "Nothing selected"
+		return 0
+	elif [[ $selected == "personal" ]]; then
+		git config user.name "bru-correa"
+		git config user.email "bruuh.cor@gmail.com"
+		set_origin $selected
+	elif [[ $selected == "work" ]]; then
+		git config user.name "bcorrea-ax4b"
+		git config user.email "bruno.leite@ax4b.com"
+		set_origin $selected
+	elif [[ $selected == "42" ]]; then
+		git config user.name "bru-correa"
+		git config user.email "bruuh.cor@gmail.com"
+	fi
+}
+
+setup_git_commit
