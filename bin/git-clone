@@ -1,0 +1,46 @@
+#!/bin/bash
+
+FZF_SETTINGS="--height=50% --layout=reverse --border --exit-0"
+
+function clone_repository() {
+  origin=$(
+    echo $1 |
+			sed -r 's/git@\w+\.github/git@github/' |
+			sed "s/git@/git@$2./"
+  )
+	git clone $origin
+}
+
+function git_clone() {
+  if [[ $# = 0 ]]; then
+    echo "You need to pass the repository url!"
+    return 1
+  fi
+
+  url=$1
+	repo_name=$(echo "$url" | sed -E 's|.*/([^/]+)\.git$|\1|')
+
+	items=("personal" "work" "42")
+	selected=$(printf "%s\n" "${items[@]}" |
+		fzf --prompt=" Git Config - Choose your commit profile" $FZF_SETTINGS)
+	if [[ -z $selected ]]; then
+		echo "Nothing selected"
+		return 1
+	fi
+
+	clone_repository $url $selected
+	cd $repo_name
+
+	if [[ $selected == "personal" ]]; then
+		git config user.name "bru-correa"
+		git config user.email "bruuh.cor@gmail.com"
+	elif [[ $selected == "work" ]]; then
+		git config user.name "bcorrea-ax4b"
+		git config user.email "bruno.leite@ax4b.com"
+	elif [[ $selected == "42" ]]; then
+		git config user.name "bru-correa"
+		git config user.email "bruuh.cor@gmail.com"
+	fi
+}
+
+git_clone $1
