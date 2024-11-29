@@ -1,0 +1,25 @@
+session_name: sign-front
+start_directory: "~/projects/ax4b/sign-application"
+
+windows:
+  - window_name: code
+    focus: true
+    panes:
+      - nvim
+
+  - window_name: front
+    panes:
+      - pnpm run dev
+
+  - window_name: back
+    start_directory: "~/projects/ax4b/sign-api"
+    layout: main-vertical
+    options:
+      main-pane-width: 50%
+    panes:
+      - pnpm start:dev
+      - docker compose up
+
+  - window_name: git
+    panes:
+      - lazygit
