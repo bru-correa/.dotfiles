@@ -1,4 +1,4 @@
 function sc
-	cd $(git rev-parse --show-toplevel)
-	cd $(fdfind -t d | fzf)
+	cd (git rev-parse --show-toplevel)
+	cd (fdfind -t d | fzf)
 end
