@@ -1,0 +1,9 @@
+[init]
+	defaultBranch = main
+
+[includeIf "gitdir:~/projects/ax4b/"]
+  path = ~/.work.gitconfig
+
+
+[includeIf "gitdir:~/projects/personal/"]
+  path = ~/.personal.gitconfig

@@ -1,0 +1,6 @@
+[user]
+  email = "bruuh.cor@gmail.com"
+  name = "bru-correa"
+
+[core]
+  sshCommand = ssh -i ~/.ssh/id_ed25519

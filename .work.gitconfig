@@ -1,0 +1,6 @@
+[user]
+  email = "bruno.leite@ax4b.com"
+  name = "bcorrea-ax4b"
+
+[core]
+  sshCommand = ssh -i ~/.ssh/ax4b_ed25519
