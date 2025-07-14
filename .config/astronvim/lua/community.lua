@@ -5,32 +5,18 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
+  -- Languages
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.typescript" },
-  { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.json" },
-  { import = "astrocommunity.pack.docker" },
+  { import = "astrocommunity.pack.html-css" },
+  { import = "astrocommunity.pack.tailwindcss" },
+
+  -- Utils
+  { import = "astrocommunity.file-explorer.mini-files" },
+  { import = "astrocommunity.recipes.picker-lsp-mappings" },
   { import = "astrocommunity.motion.mini-move" },
-  { import = "astrocommunity.lsp.lsp-signature-nvim", opts = { hint_enable = true } },
-  { import = "astrocommunity.file-explorer.oil-nvim" },
-  { import = "astrocommunity.diagnostics.trouble-nvim" },
 
-  -- Theme
-  { import = "astrocommunity.colorscheme.catppuccin" },
-
-  -- Experimental
-  { import = "astrocommunity.fuzzy-finder.fzf-lua" },
-  -- { import = "astrocommunity.completion.blink-cmp" },
-
-  {
-    import = "astrocommunity.recipes.vscode",
-    opts = {
-      keymap = {
-        ["<C-o>"] = { "accept", "fallback" },
-      },
-    },
-  },
-
-  -- { import = "astrocommunity.pack.nvchad-ui" },
-  -- import/override with your plugins folder
+  -- AI
+  -- { import = "astrocommunity.completion.avante-nvim" },
 }
