@@ -1,5 +1,6 @@
 # Search all folders
 function sa
-	cd $HOME
-	cd (find . -maxdepth 5 -type d | grep -v "node_modules" | grep -v "venv" | fzf)
+    cd $HOME
+    cd (find . -maxdepth 3 -type d |
+    grep -vE "(node_modules|venv|\.git|\.idea)" | fzf)
 end
