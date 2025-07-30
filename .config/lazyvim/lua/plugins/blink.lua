@@ -4,8 +4,8 @@ return {
     signature = { enabled = true },
 
     keymap = {
-      ["<c-k>"] = { "select_prev", "fallback" },
-      ["<c-j>"] = { "select_next", "fallback" },
+      ["<c-k>"] = { "select_prev" },
+      ["<c-j>"] = { "select_next" },
       ["<c-o>"] = { "select_and_accept", "fallback" },
 
       ["<c-l>"] = { "snippet_forward", "fallback" },
@@ -20,6 +20,33 @@ return {
 
     completion = {
       ghost_text = { enabled = false },
+
+      menu = {
+        draw = {
+          components = {
+            kind_icon = {
+              text = function(ctx)
+                local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                return kind_icon
+              end,
+              -- (optional) use highlights from mini.icons
+              highlight = function(ctx)
+                local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                return hl
+              end,
+            },
+            kind = {
+              -- (optional) use highlights from mini.icons
+              highlight = function(ctx)
+                local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                return hl
+              end,
+            },
+          },
+        },
+      },
     },
+
+    fuzzy = { implementation = "prefer_rust_with_warning" },
   },
 }

@@ -1,16 +1,6 @@
 -- Define the colorscheme at the end of the file
 
 return {
-  {
-    "scottmckendry/cyberdream.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = function(_, opts)
-      opts.transparent = true
-      opts.italic_comments = true
-      opts.borderless_telescope = false
-    end,
-  },
 
   {
     "rose-pine/neovim",
@@ -78,28 +68,56 @@ return {
   {
     "folke/tokyonight.nvim",
     opts = {
-      style = "night",
+      style = "moon",
     },
     lazy = false,
   },
 
-  -- modicator (auto color line number based on vim mode)
   {
-    "mawkler/modicator.nvim",
-    dependencies = "scottmckendry/cyberdream.nvim",
+    "rebelot/kanagawa.nvim",
     init = function()
-      -- These are required for Modicator to work
-      vim.o.cursorline = false
-      vim.o.number = true
-      vim.o.termguicolors = true
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "kanagawa",
+        callback = function()
+          vim.api.nvim_set_hl(0, "StatusLine", { link = "lualine_c_normal" })
+        end,
+      })
     end,
-    opts = {},
+    opts = {
+      transparent = true,
+      -- -- Highlight background color of diagnostics
+      -- overrides = function(colors)
+      --   local theme = colors.theme
+      --   local makeDiagnosticColor = function(color)
+      --     local c = require("kanagawa.lib.color")
+      --     return { fg = color, bg = c(color):blend(theme.ui.bg, 0.95):to_hex() }
+      --   end
+      --
+      --   return {
+      --     DiagnosticVirtualTextHint = makeDiagnosticColor(theme.diag.hint),
+      --     DiagnosticVirtualTextInfo = makeDiagnosticColor(theme.diag.info),
+      --     DiagnosticVirtualTextWarn = makeDiagnosticColor(theme.diag.warning),
+      --     DiagnosticVirtualTextError = makeDiagnosticColor(theme.diag.error),
+      --   }
+      -- end,
+
+      -- Dark completion popup menu
+      overrides = function(colors)
+        local theme = colors.theme
+        return {
+          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 }, -- add `blend = vim.o.pumblend` to enable transparency
+          PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
+          PmenuSbar = { bg = theme.ui.bg_m1 },
+          PmenuThumb = { bg = theme.ui.bg_p2 },
+        }
+      end,
+    },
   },
 
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "tokyonight",
+      colorscheme = "kanagawa",
     },
   },
 }
